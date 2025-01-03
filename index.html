@@ -15,7 +15,7 @@
         /* Tampilan dasar */
         body {
             font-family: 'Press Start 2P', cursive;
-            background-color: #1a1a1a; /* Warna latar belakang asli */
+            background-color: #1a1a1a;
             color: #fff;
             margin: 0;
             padding: 0;
@@ -24,31 +24,19 @@
             align-items: center;
             justify-content: center;
             height: 100vh;
-            background: linear-gradient(45deg, #1a1a1a, #333); /* Gradient dengan warna hitam dan abu-abu */
+            background: linear-gradient(45deg, #1a1a1a, #333);
         }
 
         header {
             width: 100%;
-            padding: 30px 0; /* Memberikan ruang lebih agar teks lebih ke bawah */
+            padding: 30px 0;
             background-color: #111;
             text-align: center;
-            font-size: 36px; /* Ukuran font untuk desktop */
+            font-size: 36px;
             font-weight: bold;
             color: #fff;
             border-bottom: 3px solid #e74c3c;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             margin-bottom: 30px;
-        }
-
-        /* Responsive style untuk layar kecil (handphone) */
-        @media (max-width: 768px) {
-            header {
-                font-size: 20px; /* Ukuran font lebih kecil */
-                padding: 60px 0 20px 0; /* Menambah ruang atas agar teks turun lebih bawah */
-                margin-bottom: 20px; /* Memberikan jarak antara header dan konten lainnya */
-            }
         }
 
         main {
@@ -70,7 +58,7 @@
         form {
             display: flex;
             flex-direction: column;
-            gap: 20px; /* Meningkatkan jarak antar elemen untuk kenyamanan */
+            gap: 20px;
         }
 
         label {
@@ -79,7 +67,7 @@
         }
 
         input, select, textarea, button {
-            padding: 12px; /* Memperbesar padding agar lebih mudah digunakan */
+            padding: 12px;
             border: 2px solid #e74c3c;
             border-radius: 8px;
             background-color: #444;
@@ -97,7 +85,7 @@
             background-color: #f39c12;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            font-size: 1.2em; /* Memperbesar font tombol */
+            font-size: 1.2em;
             padding: 14px;
         }
 
@@ -105,61 +93,15 @@
             background-color: #e67e22;
         }
 
-        /* Responsive style untuk layar kecil (handphone) */
-        @media (max-width: 768px) {
-            body {
-                background: linear-gradient(45deg, #1a1a1a, #333); /* Menggunakan warna latar belakang asli */
-            }
-
-            header {
-                font-size: 20px; /* Ukuran font lebih kecil untuk header di ponsel */
-                padding: 60px 0 20px 0; /* Menambah padding atas untuk memberikan jarak lebih besar */
-            }
-
-            main {
-                width: 90%; /* Lebar form yang lebih besar di layar kecil */
-                margin: 10px;
-                padding: 15px;
-            }
-
-            h1 {
-                font-size: 1.5em; /* Ukuran font yang lebih kecil untuk judul */
-                text-align: center;
-            }
-
-            label {
-                font-size: 1.1em; /* Ukuran label lebih kecil untuk mobile */
-            }
-
-            input, select, textarea, button {
-                font-size: 1.1em; /* Menyesuaikan ukuran font agar nyaman di layar kecil */
-            }
-
-            button {
-                padding: 16px; /* Memperbesar tombol agar lebih mudah ditekan */
-            }
-
-            textarea {
-                height: 150px; /* Memperbesar tinggi textarea agar lebih nyaman digunakan di ponsel */
-            }
-        }
-
-        /* Textarea styling */
         textarea {
             resize: vertical;
             height: 120px;
         }
 
-        /* Game-like button animation */
         button:active {
             transform: scale(0.98);
         }
-
-        .game-font {
-            font-family: 'Press Start 2P', cursive;
-        }
     </style>
-    <!-- Google font 'Press Start 2P' untuk tema game -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -174,6 +116,9 @@
             
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
+            
+            <label for="phone">Nomor Telepon:</label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10,15}" placeholder="Contoh: 08123456789" required>
             
             <label for="service">Layanan yang Dipesan:</label>
             <select id="service" name="service">
@@ -196,36 +141,30 @@
         </form>
     </main>
 
-    <!-- EmailJS library -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
     <script>
-        // Inisialisasi EmailJS dengan User ID Anda
         emailjs.init("rBv2PT8W1Pj0hmWAj");
 
-        // Event listener untuk pengiriman formulir
         document.getElementById('orderForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Mencegah formulir disubmit secara normal
+            e.preventDefault();
 
-            // Ambil data dari formulir
             const formData = {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
                 service: document.getElementById('service').value,
                 message: document.getElementById('message').value,
             };
 
-            // Pastikan kolom nama dan email tidak kosong
-            if (!formData.name || !formData.email || !formData.service) {
+            if (!formData.name || !formData.email || !formData.phone || !formData.service) {
                 alert('Mohon isi semua kolom yang diperlukan.');
                 return;
             }
 
-            // Kirim data formulir menggunakan EmailJS
             emailjs.send("service_s24souq", "template_xqfsdpm", formData)
                 .then(function(response) {
                     alert('Formulir berhasil dikirim! Kami akan segera menghubungi Anda.');
-                    // Reset form setelah berhasil dikirim
                     document.getElementById('orderForm').reset();
                 }, function(error) {
                     alert('Terjadi kesalahan, silakan coba lagi.');
