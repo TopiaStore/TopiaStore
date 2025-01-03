@@ -3,103 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulir dengan Pembatasan</title>
+    <title>TopiaStore - Pemesanan Layanan</title>
     <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
+            font-family: 'Press Start 2P', cursive;
+            background-color: #1a1a1a;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #1a1a1a, #333);
+        }
+
+        header {
+            width: 100%;
+            padding: 30px 0;
+            background-color: #111;
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: #fff;
+            border-bottom: 3px solid #e74c3c;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            margin-bottom: 30px;
         }
-        form {
-            background: #fff;
+
+        main {
+            max-width: 800px;
+            margin-top: 30px;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: #333;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
             width: 100%;
-            max-width: 400px;
         }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-        input, select, textarea, button {
-            width: 100%;
-            margin-bottom: 15px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        button {
-            background-color: #5cb85c;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-        }
-        button:disabled {
-            background-color: #aaa;
-        }
-        .countdown {
-            color: #d9534f;
-            font-weight: bold;
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
             text-align: center;
-            margin-bottom: 15px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        label {
+            font-size: 1.2em;
+            color: #e74c3c;
+        }
+
+        input, select, textarea, button {
+            padding: 12px;
+            border: 2px solid #e74c3c;
+            border-radius: 8px;
+            background-color: #444;
+            color: white;
+            font-size: 1em;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #f39c12;
+        }
+
+        button {
+            background-color: #f39c12;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1.2em;
+            padding: 14px;
+        }
+
+        button:hover {
+            background-color: #e67e22;
+        }
+
+        .countdown {
+            text-align: center;
+            font-size: 1.2em;
+            color: #f39c12;
+            margin-bottom: 10px;
+        }
+
+        button:disabled {
+            background-color: #555;
+            cursor: not-allowed;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-    <form id="orderForm">
+    <header>
+        <h1 class="game-font">TopiaStore</h1>
+    </header>
+    <main>
+        <h1>Pesan Layanan Game</h1>
         <div class="countdown" id="countdownMessage"></div>
-        <label for="name">Nama:</label>
-        <input type="text" id="name" name="name" required>
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        
-        <label for="service">Layanan yang Dipesan:</label>
-        <select id="service" name="service" required>
-            <option value="Server GTA SAMP">Server GTA SAMP</option>
-            <option value="Private Server Growtopia">Private Server Growtopia</option>
-            <option value="Minecraft Server">Minecraft Server</option>
-        </select>
-        
-        <label for="message">Pesan Tambahan:</label>
-        <textarea id="message" name="message"></textarea>
-        
-        <button type="submit" id="submitButton">Kirim Pesanan</button>
-    </form>
+        <form id="orderForm">
+            <label for="name">Nama:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="service">Layanan yang Dipesan:</label>
+            <select id="service" name="service" required>
+                <option value="Server GTA SAMP">Server GTA SAMP</option>
+                <option value="Private Server Growtopia">Private Server Growtopia</option>
+                <option value="Minecraft Server">Minecraft Server</option>
+            </select>
+            
+            <label for="message">Pesan Tambahan:</label>
+            <textarea id="message" name="message"></textarea>
+            
+            <button type="submit" id="submitButton">Kirim Pesanan</button>
+        </form>
+    </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
-        emailjs.init("rBv2PT8W1Pj0hmWAj");
-
         const orderForm = document.getElementById('orderForm');
         const countdownMessage = document.getElementById('countdownMessage');
         const submitButton = document.getElementById('submitButton');
         const oneHour = 60 * 60 * 1000; // 1 jam dalam milidetik
 
-        // Fungsi untuk menyimpan waktu pengiriman
+        // Fungsi menyimpan waktu pengiriman
         function saveSubmissionTime() {
             const currentTime = Date.now();
             localStorage.setItem('lastSubmissionTime', currentTime);
         }
 
-        // Fungsi untuk memeriksa apakah pengguna bisa mengirim lagi
+        // Fungsi mengecek apakah pengguna bisa mengirim lagi
         function canSubmitAgain() {
             const lastSubmissionTime = localStorage.getItem('lastSubmissionTime');
-            if (!lastSubmissionTime) {
-                return true; // Belum ada pengiriman sebelumnya
-            }
+            if (!lastSubmissionTime) return true;
             const currentTime = Date.now();
             return currentTime - lastSubmissionTime >= oneHour;
         }
 
-        // Fungsi untuk menghitung waktu hitung mundur
+        // Fungsi hitung mundur
         function updateCountdown() {
             const lastSubmissionTime = localStorage.getItem('lastSubmissionTime');
             if (!lastSubmissionTime) return;
@@ -119,40 +175,24 @@
             }
         }
 
-        // Event listener untuk pengiriman formulir
+        // Event listener pengiriman formulir
         orderForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
             if (!canSubmitAgain()) {
-                alert('Anda hanya dapat mengirim formulir sekali setiap 1 jam. Mohon tunggu.');
+                alert('Anda hanya dapat mengirim formulir sekali setiap 1 jam.');
                 return;
             }
 
-            // Ambil data formulir
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                service: document.getElementById('service').value,
-                message: document.getElementById('message').value,
-            };
-
-            // Kirim data menggunakan EmailJS
-            emailjs.send("service_s24souq", "template_xqfsdpm", formData)
-                .then(function(response) {
-                    alert('Formulir berhasil dikirim!');
-                    orderForm.reset();
-                    saveSubmissionTime();
-                    updateCountdown(); // Perbarui hitung mundur
-                })
-                .catch(function(error) {
-                    console.error('Gagal mengirim formulir:', error);
-                    alert('Terjadi kesalahan saat mengirim formulir. Mohon coba lagi.');
-                });
+            alert('Formulir berhasil dikirim!');
+            orderForm.reset();
+            saveSubmissionTime();
+            updateCountdown();
         });
 
-        // Perbarui hitung mundur setiap detik
+        // Update countdown setiap detik
         const countdownInterval = setInterval(updateCountdown, 1000);
-        updateCountdown(); // Jalankan sekali saat halaman dimuat
+        updateCountdown();
     </script>
 </body>
 </html>
