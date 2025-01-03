@@ -192,6 +192,7 @@
             <label for="message">Pesan Tambahan:</label>
             <textarea id="message" name="message"></textarea>
             
+            <!-- Input token tersembunyi -->
             <input type="hidden" id="token" name="token">
             
             <button type="submit">Kirim Pesanan</button>
@@ -244,5 +245,4 @@
             // Kirim data formulir menggunakan EmailJS
             emailjs.send("service_s24souq", "template_xqfsdpm", formData)
                 .then(function(response) {
-                    alert('Formulir berhasil dikirim! Kami akan segera menghubungi Anda.');
-                    // Reset form setelah berhasil dikirim
+                    alert('Formul
