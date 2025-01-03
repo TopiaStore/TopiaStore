@@ -7,9 +7,9 @@
     <style>
         /* CSS */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f8ff;
-            color: #333;
+            font-family: 'Press Start 2P', cursive; /* Font tema game */
+            background-color: #6a0dad; /* Warna ungu */
+            color: #fff;
             margin: 0;
             padding: 0;
             display: flex;
@@ -19,7 +19,7 @@
         }
 
         header {
-            background-color: #1e90ff;
+            background-color: #8a2be2; /* Warna ungu terang */
             color: #fff;
             width: 100%;
             text-align: center;
@@ -28,30 +28,7 @@
         }
 
         .theme-switch {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            cursor: pointer;
-            font-size: 24px;
-            transition: transform 0.3s ease;
-        }
-
-        .theme-switch.sun {
-            display: none;
-        }
-
-        .theme-switch.moon {
-            display: block;
-        }
-
-        .dark-mode {
-            background-color: #222;
-            color: #fff;
-        }
-
-        .light-mode {
-            background-color: #f0f8ff;
-            color: #333;
+            display: none; /* Menghapus fitur mode gelap */
         }
 
         main {
@@ -99,16 +76,16 @@
         h1 {
             margin: 0;
             padding: 0;
+            font-size: 2em;
         }
+
+        /* Menambahkan font tema game dengan Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
     </style>
 </head>
-<body class="light-mode">
+<body>
     <header>
         <h1>Selamat datang di TopiaStore</h1>
-        <div id="themeSwitcher" class="theme-switch moon">
-            <span id="sunIcon">??</span>
-            <span id="moonIcon">??</span>
-        </div>
     </header>
     <main>
         <form id="orderForm">
@@ -171,7 +148,7 @@
                     alert('Formulir berhasil dikirim! Kami akan segera menghubungi Anda.');
                     
                     // Kirim email konfirmasi ke pengirim
-                    emailjs.send("service_3r85qui", "template_qn9t8wh", formData)
+                    emailjs.send("service_s24souq", "template_qn9t8wh", formData)
                         .then(function(response) {
                             console.log('Konfirmasi email terkirim ke pengirim');
                         }, function(error) {
@@ -184,15 +161,6 @@
                     alert('Terjadi kesalahan, silakan coba lagi.');
                     console.error('EmailJS Error:', error);
                 });
-        });
-
-        // Fungsi untuk mengganti tema
-        const themeSwitcher = document.getElementById('themeSwitcher');
-        themeSwitcher.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            document.body.classList.toggle('light-mode');
-            themeSwitcher.classList.toggle('sun');
-            themeSwitcher.classList.toggle('moon');
         });
     </script>
 </body>
