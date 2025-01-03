@@ -165,15 +165,18 @@
             // Kirim email ke admin
             emailjs.send("service_s24souq", "template_xqfsdpm", formData)
                 .then(function(response) {
-                    // Kirim email konfirmasi ke pembeli
-                    emailjs.send("service_3r85qui", "template_qn9t8wh", formData)
-                        .then(function(response) {
-                            alert('Formulir berhasil dikirim! Kami akan segera menghubungi Anda.');
-                            document.getElementById('orderForm').reset();
-                        }, function(error) {
-                            alert('Terjadi kesalahan saat mengirim email konfirmasi ke pembeli.');
-                            console.error('EmailJS Error (Pembeli):', error);
-                        });
+                    // Jeda sebelum mengirim email ke pembeli
+                    setTimeout(function() {
+                        // Kirim email konfirmasi ke pembeli setelah delay
+                        emailjs.send("service_3r85qui", "template_qn9t8wh", formData)
+                            .then(function(response) {
+                                alert('Formulir berhasil dikirim! Kami akan segera menghubungi Anda.');
+                                document.getElementById('orderForm').reset();
+                            }, function(error) {
+                                alert('Terjadi kesalahan saat mengirim email konfirmasi ke pembeli.');
+                                console.error('EmailJS Error (Pembeli):', error);
+                            });
+                    }, 2000); // Jeda 2 detik sebelum mengirim email ke pembeli
                 }, function(error) {
                     alert('Terjadi kesalahan, silakan coba lagi.');
                     console.error('EmailJS Error (Admin):', error);
