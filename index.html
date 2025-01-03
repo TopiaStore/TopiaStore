@@ -5,89 +5,155 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TopiaStore - Pemesanan Layanan</title>
     <style>
-        /* CSS */
+        /* Reset CSS untuk pengaturan dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Tampilan dasar */
         body {
-            font-family: 'Press Start 2P', cursive; /* Font tema game */
-            background-color: #6a0dad; /* Warna ungu */
+            font-family: 'Press Start 2P', cursive;
+            background-color: #1a1a1a;
             color: #fff;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: background-color 0.3s, color 0.3s;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #1a1a1a, #333);
         }
 
         header {
-            background-color: #8a2be2; /* Warna ungu terang */
-            color: #fff;
             width: 100%;
-            text-align: center;
             padding: 20px 0;
+            background-color: #111;
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: #fff;
+            border-bottom: 3px solid #e74c3c;
             position: relative;
         }
 
+        /* Icon theme switcher */
         .theme-switch {
-            display: none; /* Menghapus fitur mode gelap */
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 30px;
+        }
+
+        .theme-switch.sun {
+            display: none;
+        }
+
+        .theme-switch.moon {
+            display: block;
+        }
+
+        /* Dark mode styling */
+        .dark-mode {
+            background-color: #222;
+        }
+
+        /* Light mode styling */
+        .light-mode {
+            background-color: #f5f5f5;
+            color: #333;
         }
 
         main {
+            max-width: 800px;
+            margin-top: 30px;
             padding: 20px;
-            max-width: 600px;
+            background-color: #333;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
             width: 100%;
-            background-color: #fff;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            margin-top: 20px;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
         form {
             display: flex;
             flex-direction: column;
+            gap: 15px;
         }
 
-        label, input, select, textarea, button {
-            margin-bottom: 12px;
+        label {
+            font-size: 1.2em;
+            color: #e74c3c;
+        }
+
+        input, select, textarea, button {
             padding: 10px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
+            border: 2px solid #e74c3c;
+            border-radius: 8px;
+            background-color: #444;
+            color: white;
+            font-size: 1em;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #f39c12;
         }
 
         button {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #f39c12;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease;
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #e67e22;
         }
 
-        input, select, textarea {
-            width: 100%;
-            box-sizing: border-box;
+        /* Responsive style for smaller screens */
+        @media (max-width: 768px) {
+            main {
+                width: 90%;
+            }
         }
 
+        /* Textarea styling */
         textarea {
             resize: vertical;
+            height: 120px;
         }
 
-        h1 {
-            margin: 0;
-            padding: 0;
-            font-size: 2em;
+        /* Game-like button animation */
+        button:active {
+            transform: scale(0.98);
         }
 
-        /* Menambahkan font tema game dengan Google Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        .game-font {
+            font-family: 'Press Start 2P', cursive;
+        }
     </style>
+    <!-- Google font 'Press Start 2P' untuk tema game -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="light-mode">
     <header>
-        <h1>Selamat datang di TopiaStore</h1>
+        <h1 class="game-font">TopiaStore</h1>
+        <div id="themeSwitcher" class="theme-switch moon">
+            <span id="sunIcon">🌞</span>
+            <span id="moonIcon">🌜</span>
+        </div>
     </header>
     <main>
+        <h1>Pesan Layanan Game</h1>
         <form id="orderForm">
             <label for="name">Nama:</label>
             <input type="text" id="name" name="name" required>
@@ -117,12 +183,11 @@
     </main>
 
     <!-- EmailJS library -->
-    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2.6.4/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-    <!-- JavaScript -->
     <script>
         // Inisialisasi EmailJS dengan User ID Anda
-        emailjs.init("WYxsFcYDUslJ82JKo");
+        emailjs.init("rBv2PT8W1Pj0hmWAj");
 
         // Event listener untuk pengiriman formulir
         document.getElementById('orderForm').addEventListener('submit', function(e) {
@@ -142,25 +207,25 @@
                 return;
             }
 
-            // Kirim data formulir menggunakan EmailJS ke email Anda
+            // Kirim data formulir menggunakan EmailJS
             emailjs.send("service_s24souq", "template_xqfsdpm", formData)
                 .then(function(response) {
                     alert('Formulir berhasil dikirim! Kami akan segera menghubungi Anda.');
-                    
-                    // Kirim email konfirmasi ke pengirim
-                    emailjs.send("service_s24souq", "template_qn9t8wh", formData)
-                        .then(function(response) {
-                            console.log('Konfirmasi email terkirim ke pengirim');
-                        }, function(error) {
-                            console.error('Terjadi kesalahan pada pengiriman email konfirmasi', error);
-                        });
-
                     // Reset form setelah berhasil dikirim
                     document.getElementById('orderForm').reset();
                 }, function(error) {
                     alert('Terjadi kesalahan, silakan coba lagi.');
                     console.error('EmailJS Error:', error);
                 });
+        });
+
+        // Fungsi untuk mengganti tema
+        const themeSwitcher = document.getElementById('themeSwitcher');
+        themeSwitcher.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('light-mode');
+            themeSwitcher.classList.toggle('sun');
+            themeSwitcher.classList.toggle('moon');
         });
     </script>
 </body>
