@@ -57,7 +57,7 @@
         form {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px; /* Meningkatkan jarak antar elemen untuk kenyamanan */
         }
 
         label {
@@ -66,7 +66,7 @@
         }
 
         input, select, textarea, button {
-            padding: 10px;
+            padding: 12px; /* Memperbesar padding agar lebih mudah digunakan */
             border: 2px solid #e74c3c;
             border-radius: 8px;
             background-color: #444;
@@ -84,6 +84,8 @@
             background-color: #f39c12;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            font-size: 1.2em; /* Memperbesar font tombol */
+            padding: 14px;
         }
 
         button:hover {
@@ -103,6 +105,7 @@
             main {
                 width: 90%; /* Lebar form yang lebih besar di layar kecil */
                 margin: 10px;
+                padding: 15px;
             }
 
             h1 {
@@ -115,11 +118,15 @@
             }
 
             input, select, textarea, button {
-                font-size: 0.9em; /* Menyesuaikan ukuran font agar nyaman di layar kecil */
+                font-size: 1.1em; /* Menyesuaikan ukuran font agar nyaman di layar kecil */
             }
 
             button {
-                padding: 12px;
+                padding: 16px; /* Memperbesar tombol agar lebih mudah ditekan */
+            }
+
+            textarea {
+                height: 150px; /* Memperbesar tinggi textarea agar lebih nyaman digunakan di ponsel */
             }
         }
 
