@@ -5,8 +5,161 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TopiaStore - Pemesanan Layanan</title>
     <style>
-        /* CSS sama seperti sebelumnya */
+        /* Reset CSS untuk pengaturan dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Tampilan dasar */
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background-color: #1a1a1a; /* Warna latar belakang asli */
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(45deg, #1a1a1a, #333); /* Gradient dengan warna hitam dan abu-abu */
+        }
+
+        header {
+            width: 100%;
+            padding: 30px 0; /* Memberikan ruang lebih agar teks lebih ke bawah */
+            background-color: #111;
+            text-align: center;
+            font-size: 36px; /* Ukuran font untuk desktop */
+            font-weight: bold;
+            color: #fff;
+            border-bottom: 3px solid #e74c3c;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        /* Responsive style untuk layar kecil (handphone) */
+        @media (max-width: 768px) {
+            header {
+                font-size: 20px; /* Ukuran font lebih kecil */
+                padding: 60px 0 20px 0; /* Menambah ruang atas agar teks turun lebih bawah */
+                margin-bottom: 20px; /* Memberikan jarak antara header dan konten lainnya */
+            }
+        }
+
+        main {
+            max-width: 800px;
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #333;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px; /* Meningkatkan jarak antar elemen untuk kenyamanan */
+        }
+
+        label {
+            font-size: 1.2em;
+            color: #e74c3c;
+        }
+
+        input, select, textarea, button {
+            padding: 12px; /* Memperbesar padding agar lebih mudah digunakan */
+            border: 2px solid #e74c3c;
+            border-radius: 8px;
+            background-color: #444;
+            color: white;
+            font-size: 1em;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #f39c12;
+        }
+
+        button {
+            background-color: #f39c12;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1.2em; /* Memperbesar font tombol */
+            padding: 14px;
+        }
+
+        button:hover {
+            background-color: #e67e22;
+        }
+
+        /* Responsive style untuk layar kecil (handphone) */
+        @media (max-width: 768px) {
+            body {
+                background: linear-gradient(45deg, #1a1a1a, #333); /* Menggunakan warna latar belakang asli */
+            }
+
+            header {
+                font-size: 20px; /* Ukuran font lebih kecil untuk header di ponsel */
+                padding: 60px 0 20px 0; /* Menambah padding atas untuk memberikan jarak lebih besar */
+            }
+
+            main {
+                width: 90%; /* Lebar form yang lebih besar di layar kecil */
+                margin: 10px;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.5em; /* Ukuran font yang lebih kecil untuk judul */
+                text-align: center;
+            }
+
+            label {
+                font-size: 1.1em; /* Ukuran label lebih kecil untuk mobile */
+            }
+
+            input, select, textarea, button {
+                font-size: 1.1em; /* Menyesuaikan ukuran font agar nyaman di layar kecil */
+            }
+
+            button {
+                padding: 16px; /* Memperbesar tombol agar lebih mudah ditekan */
+            }
+
+            textarea {
+                height: 150px; /* Memperbesar tinggi textarea agar lebih nyaman digunakan di ponsel */
+            }
+        }
+
+        /* Textarea styling */
+        textarea {
+            resize: vertical;
+            height: 120px;
+        }
+
+        /* Game-like button animation */
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .game-font {
+            font-family: 'Press Start 2P', cursive;
+        }
     </style>
+    <!-- Google font 'Press Start 2P' untuk tema game -->
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -93,13 +246,3 @@
                 .then(function(response) {
                     alert('Formulir berhasil dikirim! Kami akan segera menghubungi Anda.');
                     // Reset form setelah berhasil dikirim
-                    document.getElementById('orderForm').reset();
-                    sessionStorage.removeItem('formToken'); // Hapus token setelah berhasil dikirim
-                }, function(error) {
-                    alert('Terjadi kesalahan, silakan coba lagi.');
-                    console.error('EmailJS Error:', error);
-                });
-        });
-    </script>
-</body>
-</html>
