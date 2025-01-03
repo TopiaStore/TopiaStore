@@ -3,246 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TopiaStore - Pemesanan Layanan</title>
+    <title>Formulir dengan Pembatasan</title>
     <style>
-        /* Reset CSS untuk pengaturan dasar */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        /* Tampilan dasar */
         body {
-            font-family: 'Press Start 2P', cursive;
-            background-color: #1a1a1a; /* Warna latar belakang asli */
-            color: #fff;
-            margin: 0;
-            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             height: 100vh;
-            background: linear-gradient(45deg, #1a1a1a, #333); /* Gradient dengan warna hitam dan abu-abu */
+            margin: 0;
         }
-
-        header {
-            width: 100%;
-            padding: 30px 0; /* Memberikan ruang lebih agar teks lebih ke bawah */
-            background-color: #111;
-            text-align: center;
-            font-size: 36px; /* Ukuran font untuk desktop */
-            font-weight: bold;
-            color: #fff;
-            border-bottom: 3px solid #e74c3c;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        /* Responsive style untuk layar kecil (handphone) */
-        @media (max-width: 768px) {
-            header {
-                font-size: 20px; /* Ukuran font lebih kecil */
-                padding: 60px 0 20px 0; /* Menambah ruang atas agar teks turun lebih bawah */
-                margin-bottom: 20px; /* Memberikan jarak antara header dan konten lainnya */
-            }
-        }
-
-        main {
-            max-width: 800px;
-            margin-top: 30px;
-            padding: 20px;
-            background-color: #333;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-            border-radius: 15px;
-            width: 100%;
-        }
-
-        h1 {
-            font-size: 2em;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
         form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px; /* Meningkatkan jarak antar elemen untuk kenyamanan */
-        }
-
-        label {
-            font-size: 1.2em;
-            color: #e74c3c;
-        }
-
-        input, select, textarea, button {
-            padding: 12px; /* Memperbesar padding agar lebih mudah digunakan */
-            border: 2px solid #e74c3c;
+            background: #fff;
+            padding: 20px;
             border-radius: 8px;
-            background-color: #444;
-            color: white;
-            font-size: 1em;
-            outline: none;
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
         }
-
-        input:focus, select:focus, textarea:focus {
-            border-color: #f39c12;
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
         }
-
+        input, select, textarea, button {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
         button {
-            background-color: #f39c12;
+            background-color: #5cb85c;
+            color: #fff;
+            border: none;
             cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 1.2em; /* Memperbesar font tombol */
-            padding: 14px;
         }
-
-        button:hover {
-            background-color: #e67e22;
+        button:disabled {
+            background-color: #aaa;
         }
-
-        /* Responsive style untuk layar kecil (handphone) */
-        @media (max-width: 768px) {
-            body {
-                background: linear-gradient(45deg, #1a1a1a, #333); /* Menggunakan warna latar belakang asli */
-            }
-
-            header {
-                font-size: 20px; /* Ukuran font lebih kecil untuk header di ponsel */
-                padding: 60px 0 20px 0; /* Menambah padding atas untuk memberikan jarak lebih besar */
-            }
-
-            main {
-                width: 90%; /* Lebar form yang lebih besar di layar kecil */
-                margin: 10px;
-                padding: 15px;
-            }
-
-            h1 {
-                font-size: 1.5em; /* Ukuran font yang lebih kecil untuk judul */
-                text-align: center;
-            }
-
-            label {
-                font-size: 1.1em; /* Ukuran label lebih kecil untuk mobile */
-            }
-
-            input, select, textarea, button {
-                font-size: 1.1em; /* Menyesuaikan ukuran font agar nyaman di layar kecil */
-            }
-
-            button {
-                padding: 16px; /* Memperbesar tombol agar lebih mudah ditekan */
-            }
-
-            textarea {
-                height: 150px; /* Memperbesar tinggi textarea agar lebih nyaman digunakan di ponsel */
-            }
-        }
-
-        /* Textarea styling */
-        textarea {
-            resize: vertical;
-            height: 120px;
-        }
-
-        /* Game-like button animation */
-        button:active {
-            transform: scale(0.98);
-        }
-
-        .game-font {
-            font-family: 'Press Start 2P', cursive;
+        .countdown {
+            color: #d9534f;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 15px;
         }
     </style>
-    <!-- Google font 'Press Start 2P' untuk tema game -->
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1 class="game-font">TopiaStore</h1>
-    </header>
-    <main>
-        <h1>Pesan Layanan Game</h1>
-        <form id="orderForm">
-            <label for="name">Nama:</label>
-            <input type="text" id="name" name="name" required>
-            
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            
-            <label for="service">Layanan yang Dipesan:</label>
-            <select id="service" name="service">
-                <option value="Server GTA SAMP">Server GTA SAMP</option>
-                <option value="Private Server Growtopia">Private Server Growtopia</option>
-                <option value="Minecraft Server">Minecraft Server</option>
-                <option value="Server GTA V">Server GTA V</option>
-                <option value="Promosi Server">Promosi Server</option>
-                <option value="Bot Discord">Bot Discord</option>
-                <option value="Bot WA">Bot WA</option>
-                <option value="Bot UCP GTA">Bot UCP GTA</option>
-                <option value="Mapping GTA SAMP">Mapping GTA SAMP</option>
-                <option value="Creator Custom Items GTPS">Creator Custom Items GTPS</option>
-            </select>
-            
-            <label for="message">Pesan Tambahan:</label>
-            <textarea id="message" name="message"></textarea>
-            
-            <input type="hidden" id="token" name="token">
-            
-            <button type="submit">Kirim Pesanan</button>
-        </form>
-    </main>
+    <form id="orderForm">
+        <div class="countdown" id="countdownMessage"></div>
+        <label for="name">Nama:</label>
+        <input type="text" id="name" name="name" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="service">Layanan yang Dipesan:</label>
+        <select id="service" name="service" required>
+            <option value="Server GTA SAMP">Server GTA SAMP</option>
+            <option value="Private Server Growtopia">Private Server Growtopia</option>
+            <option value="Minecraft Server">Minecraft Server</option>
+        </select>
+        
+        <label for="message">Pesan Tambahan:</label>
+        <textarea id="message" name="message"></textarea>
+        
+        <button type="submit" id="submitButton">Kirim Pesanan</button>
+    </form>
 
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
-        // Inisialisasi EmailJS dengan User ID Anda
         emailjs.init("rBv2PT8W1Pj0hmWAj");
 
-        // Fungsi untuk menghasilkan token sekali pakai
-        function generateToken() {
-            return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        const orderForm = document.getElementById('orderForm');
+        const countdownMessage = document.getElementById('countdownMessage');
+        const submitButton = document.getElementById('submitButton');
+        const oneHour = 60 * 60 * 1000; // 1 jam dalam milidetik
+
+        // Fungsi untuk menyimpan waktu pengiriman
+        function saveSubmissionTime() {
+            const currentTime = Date.now();
+            localStorage.setItem('lastSubmissionTime', currentTime);
         }
 
-        // Set token sekali pakai saat halaman dimuat
-        window.onload = function() {
-            const token = generateToken();
-            document.getElementById('token').value = token;
-            sessionStorage.setItem('formToken', token); // Simpan token di session storage
+        // Fungsi untuk memeriksa apakah pengguna bisa mengirim lagi
+        function canSubmitAgain() {
+            const lastSubmissionTime = localStorage.getItem('lastSubmissionTime');
+            if (!lastSubmissionTime) {
+                return true; // Belum ada pengiriman sebelumnya
+            }
+            const currentTime = Date.now();
+            return currentTime - lastSubmissionTime >= oneHour;
+        }
+
+        // Fungsi untuk menghitung waktu hitung mundur
+        function updateCountdown() {
+            const lastSubmissionTime = localStorage.getItem('lastSubmissionTime');
+            if (!lastSubmissionTime) return;
+
+            const currentTime = Date.now();
+            const remainingTime = oneHour - (currentTime - lastSubmissionTime);
+
+            if (remainingTime > 0) {
+                const minutes = Math.floor((remainingTime / 1000 / 60) % 60);
+                const seconds = Math.floor((remainingTime / 1000) % 60);
+                countdownMessage.textContent = `Anda dapat mengirim formulir lagi dalam ${minutes} menit dan ${seconds} detik.`;
+                submitButton.disabled = true;
+            } else {
+                countdownMessage.textContent = '';
+                submitButton.disabled = false;
+                clearInterval(countdownInterval);
+            }
         }
 
         // Event listener untuk pengiriman formulir
-        document.getElementById('orderForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // Mencegah formulir disubmit secara normal
+        orderForm.addEventListener('submit', function(e) {
+            e.preventDefault();
 
-            // Ambil data dari formulir
+            if (!canSubmitAgain()) {
+                alert('Anda hanya dapat mengirim formulir sekali setiap 1 jam. Mohon tunggu.');
+                return;
+            }
+
+            // Ambil data formulir
             const formData = {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 service: document.getElementById('service').value,
                 message: document.getElementById('message').value,
-                token: document.getElementById('token').value,
             };
 
-            // Pastikan kolom nama dan email tidak kosong
-            if (!formData.name || !formData.email || !formData.service || !formData.token) {
-                alert('Mohon isi semua kolom yang diperlukan.');
-                return;
-            }
-
-            // Periksa apakah token yang dikirim sama dengan token yang disimpan di sessionStorage
-            const storedToken = sessionStorage.getItem('formToken');
-            if (formData.token !== storedToken) {
-                alert('Token tidak valid atau telah digunakan.');
-                return;
-            }
-
-            // Kirim data formulir menggunakan EmailJS
+            // Kirim data menggunakan EmailJS
             emailjs.send("service_s24souq", "template_xqfsdpm", formData)
                 .then(function(response) {
-                    alert('Formulir berhasil dikirim! Kami akan segera menghubungi Anda.');
-                    // Reset form setelah berhasil dikirim
+                    alert('Formulir berhasil dikirim!');
+                    orderForm.reset();
+                    saveSubmissionTime();
+                    updateCountdown(); // Perbarui hitung mundur
+                })
+                .catch(function(error) {
+                    console.error('Gagal mengirim formulir:', error);
+                    alert('Terjadi kesalahan saat mengirim formulir. Mohon coba lagi.');
+                });
+        });
+
+        // Perbarui hitung mundur setiap detik
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown(); // Jalankan sekali saat halaman dimuat
+    </script>
+</body>
+</html>
