@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -111,6 +111,8 @@
     <main>
         <h1>Pesan Layanan Game</h1>
         <form id="orderForm">
+            <input type="hidden" name="recipient" value="admin"> <!-- Input tersembunyi untuk menentukan penerima -->
+            
             <label for="name">Nama:</label>
             <input type="text" id="name" name="name" required>
             
@@ -155,6 +157,7 @@
                 phone: document.getElementById('phone').value,
                 service: document.getElementById('service').value,
                 message: document.getElementById('message').value,
+                recipient: document.querySelector('input[name="recipient"]').value, // Menambahkan penerima
             };
 
             if (!formData.name || !formData.email || !formData.phone || !formData.service) {
@@ -163,21 +166,23 @@
             }
 
             // Kirim email ke admin
-            emailjs.send("service_3r85qui", "template_qn9t8wh", formData)
+            emailjs.send("service_s24souq", "template_xqfsdpm", formData)
                 .then(function(response) {
                     console.log('Email ke admin berhasil dikirim:', response);
+                    // Setelah email ke admin berhasil, kirim email ke pembeli setelah jeda
+                    setTimeout(function() {
+                        emailjs.send("service_3r85qui", "template_qn9t8wh", formData)
+                            .then(function(response) {
+                                alert('Formulir berhasil dikirim! Kami akan segera menghubungi Anda.');
+                                document.getElementById('orderForm').reset();
+                            }, function(error) {
+                                alert('Terjadi kesalahan saat mengirim email ke pembeli.');
+                                console.error('EmailJS Error:', error);
+                            });
+                    }, 1000); // Jeda 1 detik sebelum mengirim email ke pembeli
                 }, function(error) {
-                    console.error('Error mengirim email ke admin:', error);
-                });
-
-            // Kirim email ke pembeli
-            emailjs.send("service_3r85qui", "template_qn9t8wh", formData)
-                .then(function(response) {
-                    alert('Formulir berhasil dikirim! Kami akan segera menghubungi Anda.');
-                    document.getElementById('orderForm').reset();
-                }, function(error) {
-                    alert('Terjadi kesalahan, silakan coba lagi.');
-                    console.error('Error mengirim email ke pembeli:', error);
+                    alert('Terjadi kesalahan saat mengirim email ke admin.');
+                    console.error('EmailJS Error:', error);
                 });
         });
     </script>
